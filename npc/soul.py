@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from enums.gender import Gender
+from enums.roles import Role
 
 @dataclass
 class Soul:
@@ -13,3 +14,5 @@ class Soul:
     beliefs: list[str] = field(default_factory=list)
 
     gender: Gender = Gender.MALE
+
+    role: Role = Role
