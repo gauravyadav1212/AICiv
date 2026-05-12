@@ -1,5 +1,6 @@
 from npc.character import Character
 from enums.gender import Gender
+from enums.roles import Role
 from npc.soul import Soul
 from npc.memory import Memory
 
@@ -8,7 +9,8 @@ edric_soul = Soul(
     goals=["gain power"],
     fears=["public humiliation"],
     beliefs=["people are selfish"],
-    gender=Gender.MALE
+    gender=Gender.MALE,
+    role=Role.EARL
 )
 
 edric = Character(

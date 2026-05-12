@@ -70,6 +70,8 @@ class Character:
 
         Beliefs: {self.soul.beliefs}
 
+        Role/Job: {self.soul.role}
+
         Recent Memories:
         {self.memories[-5:]}
 
