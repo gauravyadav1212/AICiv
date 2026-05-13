@@ -14,7 +14,9 @@ class Role(Enum):
     KNIGHT = "knight"
 
 
-    # Military
+    # Military  
+
+    MARSHAL = "marshal"
 
     MEN_AT_ARMS = "men_at_arms"
 
