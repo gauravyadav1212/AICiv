@@ -83,8 +83,70 @@ class Character:
             "action": "...",
             "target": "..."
         }}
+
+        Your actions should realistically match:
+        - your role
+        - your resources
+        - your social position
+        - your personality
+
+        Do not behave like a spymaster unless your role supports it.
         """
     
+    def build_observe_prompt(self):
+
+        return f"""
+        You are an NPC in a medieval world.
+
+        Name: {self.name}
+
+        Gender: {self.soul.gender}
+
+        Personality: {self.soul.personality}
+
+        Goals: {self.soul.goals}
+
+        Beliefs: {self.soul.beliefs}
+
+        Role/Job: {self.soul.role}
+
+        Recent Memories:
+        {self.memories[-5:]}
+
+        You are observing an event.
+
+        Respond naturally.
+
+        DO NOT take action.
+        DO NOT make plans.
+        DO NOT escalate situations.
+
+        Return valid JSON:
+
+        {{
+            "thought": "...",
+            "emotion": "...",
+            "importance": 0.0
+        }}
+        """
+    
+    def observe(self, event: str):
+
+        result = self.llm.generate(
+            system_prompt=self.build_observe_prompt(),
+            user_prompt=event
+        )
+
+        memory = Memory(
+            event=event,
+            emotion=result["emotion"],
+            importance=result["importance"]
+        )
+
+        self.add_memory(memory)
+
+        return result
+
     def think(self, situation: str):
 
         result = self.llm.generate(
