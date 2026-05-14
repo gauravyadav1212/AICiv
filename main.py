@@ -3,7 +3,6 @@ from enums.gender import Gender
 from enums.roles import Role
 from npc.soul import Soul
 from npc.memory import Memory
-from world.event_manager import broadcast_event
 from npc.conversation_manager import run_conversation
 
 # SOULS
@@ -67,27 +66,3 @@ roderick = Character(
     soul=roderick_soul
 )
 
-
-
-characters = [
-    edric,
-    rowam,
-    mira,
-    roderick
-]
-
-print("Initial Event: \n\n")
-
-
-broadcast_event(
-    characters,
-    "Rowan publicly insults Edric in the tavern."
-)
-
-print("Conversations: \n\n")
-
-run_conversation(
-    characters,
-    "Rowan publicly insults Edric in the tavern.",
-    rounds=3
-)
