@@ -1,9 +1,14 @@
+from __future__ import annotations
 from llm.llm_engine import LLMEngine
 from enums.gender import Gender
 from npc.memory import Memory
 from npc.soul import Soul
+from typing import TYPE_CHECKING
 import os
 import json
+
+if TYPE_CHECKING:
+    from world.location import Location
 
 class Character:
 
@@ -11,6 +16,7 @@ class Character:
         self,
         name: str,
         soul: Soul,
+        spawn_location: Location | None = None
     ):
 
         self.name = name
@@ -20,6 +26,8 @@ class Character:
         self.memories: list[Memory] = []
 
         self.llm = LLMEngine()
+
+        self.location = spawn_location
 
     def add_memory(self, memory: str):
 
@@ -58,7 +66,7 @@ class Character:
     def build_system_prompt(self):
 
         return f"""
-        You are an NPC in a medieval world.
+        You are a human in a medieval world.
 
         Name: {self.name}
 
@@ -71,6 +79,8 @@ class Character:
         Beliefs: {self.soul.beliefs}
 
         Role/Job: {self.soul.role}
+
+        Your current location: {self.location.name}
 
         Recent Memories:
         {self.memories[-5:]}
@@ -109,6 +119,8 @@ class Character:
         Beliefs: {self.soul.beliefs}
 
         Role/Job: {self.soul.role}
+
+        Your current location: {self.location.name}
 
         Recent Memories:
         {self.memories[-5:]}
@@ -155,3 +167,7 @@ class Character:
         )
 
         return result
+    
+    def move_to(self, location: Location):
+
+        self.location = location

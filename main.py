@@ -3,9 +3,9 @@ from enums.gender import Gender
 from enums.roles import Role
 from npc.soul import Soul
 from npc.memory import Memory
-from world.event_manager import broadcast_event
-from world.conversation_manager import run_conversation
-
+from npc.conversation_manager import run_conversation
+from world.world import World
+from world.location import Location
 # SOULS
 
 edric_soul = Soul(
@@ -45,49 +45,74 @@ roderick_soul = Soul(
 )
 
 
+# Locations
+
+traven = Location(
+    name="traven", 
+    description="An ancient structure made of stone and decorated with rich plants and a pleasing aroma",
+    location_type="social place",
+    social_class="commoner",
+    danger_level=0.2
+    )
+
+traven.add_lore("This was the first major building in village, made centuries ago and has belonged to the same family since its creation")
+
+traven.add_rumor("This served as the hiding place of king aflred during the black wars")
+
 # Characters
 
 edric = Character(
     name="Edric",
-    soul=edric_soul
+    soul=edric_soul,
+    spawn_location=traven
 )
 
-rowam = Character(
+rowan = Character(
     name="rowan",
-    soul=rowan_soul
+    soul=rowan_soul,
+    spawn_location=traven
 )
 
 mira = Character(
     name="mira",
-    soul=mira_soul
+    soul=mira_soul,
+    spawn_location=traven
 )
 
 roderick = Character(
     name="roderick",
-    soul=roderick_soul
+    soul=roderick_soul,
+    spawn_location=traven
 )
 
 
+traven.owner = mira
+characters = [edric, rowan, mira, roderick]
+locations = [traven]
 
-characters = [
-    edric,
-    rowam,
-    mira,
-    # roderick
-]
+world = World()
 
-print("Initial Event: \n\n")
+for location in locations:
+    world.add_location(location)
 
+for character in characters:
+    world.add_character(character)
 
-broadcast_event(
-    characters,
-    "Rowan publicly insults Edric in the tavern."
+world.describe()
+
+initial_event = input(
+    "\nPlease enter initial Event: "
 )
 
-print("Conversations: \n\n")
+world.broadcast_event(initial_event)
 
-run_conversation(
-    characters,
-    "Rowan publicly insults Edric in the tavern.",
-    rounds=3
-)
+while (True):
+
+    command = input(
+        "\nPress ENTER to continue or type 'exit': "
+    )
+
+    if command.lower() == "exit":
+        break
+
+    world.run()
