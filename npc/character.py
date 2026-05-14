@@ -1,10 +1,14 @@
+from __future__ import annotations
 from llm.llm_engine import LLMEngine
 from enums.gender import Gender
 from npc.memory import Memory
 from npc.soul import Soul
-from world.location import Location
+from typing import TYPE_CHECKING
 import os
 import json
+
+if TYPE_CHECKING:
+    from world.location import Location
 
 class Character:
 
@@ -12,7 +16,7 @@ class Character:
         self,
         name: str,
         soul: Soul,
-        spawn_location: Location
+        spawn_location: Location | None = None
     ):
 
         self.name = name

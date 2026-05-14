@@ -1,3 +1,9 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from npc.character import Character
+
 class Location:
 
     def __init__(
@@ -5,7 +11,7 @@ class Location:
         name: str,
         description: str,
         location_type: str,
-        owner=None,
+        owner: Character | None = None,
         social_class=None,
         danger_level=0.0
     ):
