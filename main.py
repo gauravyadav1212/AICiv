@@ -4,7 +4,7 @@ from enums.roles import Role
 from npc.soul import Soul
 from npc.memory import Memory
 from world.event_manager import broadcast_event
-from world.conversation_manager import run_conversation
+from npc.conversation_manager import run_conversation
 
 # SOULS
 
@@ -73,7 +73,7 @@ characters = [
     edric,
     rowam,
     mira,
-    # roderick
+    roderick
 ]
 
 print("Initial Event: \n\n")
