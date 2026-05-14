@@ -1,3 +1,5 @@
+from utils.printer import print_response
+
 class World:
 
     def __init__(self):
