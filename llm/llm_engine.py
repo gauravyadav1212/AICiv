@@ -2,12 +2,14 @@ from langchain_ollama import ChatOllama
 from langchain_core.messages import HumanMessage, SystemMessage
 import json
 
+from config import config
+
 
 class LLMEngine:
     def __init__(
         self,
-        model: str = "mistral:latest",
-        temperature: float = 0.7,
+        model: str = config.model_name,
+        temperature: float = config.model_temperature,
     ):
 
         self.llm = ChatOllama(
